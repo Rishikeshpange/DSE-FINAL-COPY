@@ -97,11 +97,15 @@
     self.password.text=password;
     
     
+    //Abhishek temporary setting
+    //Remove Afterwords
+    
+    self.username.text = @"JJOSHI1001680"; //Abhishek
+    self.password.text = @"TATA2015"; //Abhishek
+    
     if(!usernamme)
     {
-        
         self.Btnremeberme.image=[UIImage imageNamed:@"uncheck.png"];
-        
     }
     else{
         

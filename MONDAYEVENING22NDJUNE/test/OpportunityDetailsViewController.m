@@ -264,9 +264,14 @@
     
     //obj.Account_Name=self.CUSTOMER_ACCOUNT_NAME.text;
     
-   
+   //Adding Tap Gesture
     
-
+    // Capture taps outside the bounds of this alert view
+    //The setup code (in viewDidLoad in your view controller)
+    UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(handleSingleTap:)];
+    [self.view addGestureRecognizer:singleFingerTap];
+   // [singleFingerTap release];
    
     
     
@@ -605,14 +610,11 @@
             // [self._tableView reloadData];
         }
         
-        
         NSLog(@"Opty Id's 12%@",self.LinkCampaignList);
         NSLog(@"Counter.. %lu",(unsigned long)[self.LinkCampaignList count]);
         int counterString1=[self.LinkCampaignList count];
-        if(counterString1>=0)
+        if(counterString1 >= 0)
         {
-           
-            
             CGRect toolbarTargetFrame = CGRectMake(200, self.view.bounds.size.height-250-44, 320, 44);
             CGRect datePickerTargetFrame = CGRectMake(200, self.view.bounds.size.height-250, 320, 316);
             
@@ -621,14 +623,20 @@
             darkView.backgroundColor = [UIColor whiteColor];
             darkView.tag = 9;
             UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissDatePicker:)];
-            [darkView addGestureRecognizer:tapGesture];
+            [darkView addGestureRecognizer:tapGesture];//Abhishek Tap
             [self.view addSubview:darkView];
             
-            UIPickerView *pickerView=[[UIPickerView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height+44, 0, 216)];
+            UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                              action:@selector(handleSingleTap:)];
+            [darkView addGestureRecognizer:singleFingerTap];
+            
+            
+            
+            UIPickerView *pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height+44, 0, 216)];
             pickerView.tag = 10;
             pickerView.dataSource = self;
             pickerView.delegate = self;
-            pickerView.backgroundColor=[UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(255/255.0) alpha:0.8];
+            pickerView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(255/255.0) alpha:0.8];
             // [pickerView addTarget:self action:@selector(changeDate:) forControlEvents:UIControlEventValueChanged];
             [self.view addSubview:pickerView];
             UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height, 320, 44)] ;
@@ -636,7 +644,6 @@
             toolBar.barStyle = UIBarStyleBlackTranslucent;
             
             //     UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"Recent" style:UIBarButtonItemStyleBordered target:self action:@selector(backToRecent)];
-            
             
             UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(CancelButtonClicked:)];
             UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] ;
@@ -646,8 +653,6 @@
             [toolBar setItems:[NSArray arrayWithObjects:cancel,spacer, saveButton, nil]];
             [self.view addSubview:toolBar];
             
-            
-            
             [UIView beginAnimations:@"MoveIn" context:nil];
             toolBar.frame = toolbarTargetFrame;
             // datePicker.frame = datePickerTargetFrame;
@@ -655,8 +660,6 @@
             darkView.alpha = 0.5;
             [UIView commitAnimations];
             
-
-        
         }
         else
         {
@@ -672,6 +675,52 @@
     }
     
 }
+
+
+
+
+//The event handling method
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+    CGPoint location = [recognizer locationInView:[recognizer.view superview]];
+    
+    //Do stuff here...
+    if (location.y < 0) {
+    [self dismissLinkCampaign]; //Dismiss Link Campaign
+        
+    }
+    else
+    {
+        [self dismissLinkCampaign]; //Dismiss Link Campaign
+
+    }
+    
+}
+
+//-(void) showFromTabBar:(UITabBar *)view {
+//    //[super showFromTabBar:view];
+//    
+//    // Capture taps outside the bounds of this alert view
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOut:)];
+//    tap.cancelsTouchesInView = NO; // So that legit taps on the table bubble up to the tableview
+//    [self.view addGestureRecognizer:tap];
+//   // [tap release];
+//}
+
+-(void)dismissLinkCampaign
+{
+    self.LinkCampaignList = nil;
+    CGRect toolbarTargetFrame = CGRectMake(0, self.view.bounds.size.height, 320, 44);
+    CGRect datePickerTargetFrame = CGRectMake(0, self.view.bounds.size.height+44, 320, 216);
+    [UIView beginAnimations:@"MoveOut" context:nil];
+    [self.view viewWithTag:9].alpha = 0;
+    [self.view viewWithTag:10].frame = datePickerTargetFrame;
+    [self.view viewWithTag:11].frame = toolbarTargetFrame;
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(removeViews:)];
+    [UIView commitAnimations];
+}
+
+
 
 -(void)SelectLinkCampaignListFound:(NSNotification*)notification  // Activity Response
 {
@@ -1025,12 +1074,10 @@
 
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-
 {
     if (alertView.tag==1)
     {
         if (buttonIndex == 0)
-            
         {
             [self performSegueWithIdentifier:@"Create Account" sender:nil];
         }
@@ -1046,17 +1093,13 @@
     else if (alertView.tag==2)
     {
         if (buttonIndex == 0)
-            
         {
             [self performSegueWithIdentifier:@"Create Account" sender:nil];
-            
-            
         }
         else if (buttonIndex == 1)
         {
             [self performSegueWithIdentifier:@"UpdateOpty" sender:nil];
         }
-        
         else if (buttonIndex == 2)
         {
             [self proceedToQuoteCreation];
@@ -1077,10 +1120,7 @@
 
 -(void)proceedToQuoteCreation
 {
-    
     [self showAlert];//Abhishek
-    
-    
 //    
 //    "<SOAP:Envelope xmlns:SOAP=\"http://schemas.xmlsoap.org/soap/envelope/\">"
 //    +"<SOAP:Body>"

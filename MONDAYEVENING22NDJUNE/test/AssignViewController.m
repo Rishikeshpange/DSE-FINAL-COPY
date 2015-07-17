@@ -100,7 +100,7 @@
         //[self.navigationController pushViewController:secondViewController animated:YES];
         [self presentViewController:secondViewController animated:YES completion:nil ];
         //  [self.navigationController popToRootViewControllerAnimated:TRUE];
-        // [self dismissViewControllerAnimated:YES completion:nil];
+        //  [self dismissViewControllerAnimated:YES completion:nil];
         //  [self.parentViewController.navigationController popToRootViewControllerAnimated:YES];
         //  [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     }

@@ -25,18 +25,15 @@
     
 }
 
-
 @synthesize scroll_icons;
 @synthesize showStates;
 
 @synthesize btn_CreateAccount,btn_CreateContact;//Abhishek
 @synthesize btn_CreateOpty;//Abhishek
 
-
 UIAlertView *alert;
 // UIImageView *scroll_icons;
 - (void)viewDidLoad {
-    
     
     [super viewDidLoad];
     
@@ -67,12 +64,12 @@ UIAlertView *alert;
     self.contactListView.layer.borderColor = [UIColor grayColor].CGColor;
     self.contactListView.layer.borderWidth = borderWidth;
     
-    self.LOB.delegate=self;
-    self.opp_Contact_LOB_PickerArr=[[NSMutableArray alloc] init];
-    self.PPL_List_PickerArr=[[NSMutableArray alloc] init];
-    self.PL_List_PickerArr=[[NSMutableArray alloc] init];
-    self.Application_List_PickerArr=[[NSMutableArray alloc] init];
-    self.Financier_List_PickerArr=[[NSMutableArray alloc] init];
+    self.LOB.delegate = self;
+    self.opp_Contact_LOB_PickerArr =[[NSMutableArray alloc] init];
+    self.PPL_List_PickerArr = [[NSMutableArray alloc] init];
+    self.PL_List_PickerArr = [[NSMutableArray alloc] init];
+    self.Application_List_PickerArr = [[NSMutableArray alloc] init];
+    self.Financier_List_PickerArr = [[NSMutableArray alloc] init];
     self.Source_Contact_List_PickerArr=[[NSMutableArray alloc] initWithObjects:@"Showroom Walk-in",@"Event",@"Referral",@"Others", nil];
     self.States_List_PickerArr=[[NSMutableArray alloc] init];
     self.District_List_PickerArr=[[NSMutableArray alloc] init];
@@ -127,7 +124,7 @@ UIAlertView *alert;
     
     //textfield background color
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithCapacity:[self.States_List_PickerArr  count]];
-    [dict setObject:[NSString stringWithFormat:@"Maharastra"] forKey:@"MH"];
+    [dict setObject:[NSString stringWithFormat:@"Maharashtra"] forKey:@"MH"];
     [dict setObject:[NSString stringWithFormat:@"Andaman and Nicobar Islands"] forKey:@"AN"];
     [dict setObject:[NSString stringWithFormat:@"Andhra Pradesh"] forKey:@"AP"];
     [dict setObject:[NSString stringWithFormat:@"Arunachal Pradesh"] forKey:@"AR"];
@@ -465,7 +462,6 @@ UIAlertView *alert;
     btn_CreateOpty.enabled = NO;//Abhishek
     btn_CreateOpty.backgroundColor = [UIColor colorWithRed:(101/255.0)green:(104/255.0) blue:(27/255.0) alpha:1];//Abhishek
     
-    
 }
 
 
@@ -540,7 +536,7 @@ UIAlertView *alert;
     
     if (testLen >10) {
         
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Invalid Cell Number " delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Invalid Cell Number" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alertView show];
         self.textnumber.text = @"";
     }
@@ -549,6 +545,26 @@ UIAlertView *alert;
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string //Abhishek
 {
+    
+    //Abhishek Cell phone number should not start with Zero
+    NSUInteger testLen = [self length:self.textnumber.text];
+    NSLog(@"\n\n testLen .... %d",testLen);
+    NSLog(@"\n self.textnumber.text.. %@",self.textnumber.text);
+    if (testLen == 0) {
+
+        if ([string isEqual:@"0"])
+        {
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"warning" message:@"Cell number should not start with Zero" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            alertView.delegate = self;
+            alertView.tag = 150;
+            [alertView show];
+        }
+    }
+    else
+    {
+        NSLog(@"");
+    }
+    
     if (textField == self.textnumber) {
         NSLog(@"test");
         NSString * test123 = string;
@@ -567,8 +583,6 @@ UIAlertView *alert;
     }
     return YES;
 }
-
-
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField // Abhishek
 {
@@ -596,8 +610,8 @@ UIAlertView *alert;
         return NO;
     }
     else if (textField == self.textpostalcode){
-        [textField resignFirstResponder];
-        return NO;
+       // [textField resignFirstResponder];
+       // return NO;
     }
     else if (textField == self.LOB ){
         [textField resignFirstResponder];
@@ -1503,7 +1517,7 @@ UIAlertView *alert;
         }while ((tuple = tuple->nextSibling));
         
         self.dict = [[NSMutableDictionary alloc]initWithCapacity:[self.States_List_PickerArr  count]];
-        [ self.dict setObject:[NSString stringWithFormat:@"Maharastra"] forKey:@"MH"];
+        [ self.dict setObject:[NSString stringWithFormat:@"Maharashtra"] forKey:@"MH"];
         [ self.dict setObject:[NSString stringWithFormat:@"Andaman and Nicobar Islands"] forKey:@"AN"];
         [ self.dict setObject:[NSString stringWithFormat:@"Andhra Pradesh"] forKey:@"AP"];
         [ self.dict setObject:[NSString stringWithFormat:@"Arunachal Pradesh"] forKey:@"AR"];
@@ -2183,10 +2197,7 @@ UIAlertView *alert;
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated
 {
     
-    
 }
-
-
 -(void)showAlert
 {
     [MBProgressHUD showHUDAddedLoading:self.view animated:YES];
@@ -2214,8 +2225,6 @@ UIAlertView *alert;
                                @" </SOAP:Body>"
                                @"</SOAP:Envelope>",self.SearchContact.text];
     
-    
-    
     NSString *newString = [envelopeText stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSData *envelope = [newString dataUsingEncoding:NSUTF8StringEncoding];
@@ -2229,12 +2238,34 @@ UIAlertView *alert;
     [request setValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [request addValue:msglength forHTTPHeaderField:@"Content-Length"];
     [[RequestDelegate alloc]initiateRequest:request name:@"GetContact"];
-    
 }
 
 
 - (IBAction)createContactRequest:(id)sender
 {
+    //For Cell Number
+    NSLog(@"\n\n.. createContact Connection "); //Abhishek
+    NSUInteger testLen = [self length:self.textnumber.text];
+    NSLog(@"\n\n testLen .... %d",testLen);
+    NSLog(@"\n\n.. createContact Connection "); //Abhishek
+    
+    BOOL isEmailIDValid = [self NSStringIsValidEmail:self.textid.text];
+    NSLog(@"\n isEmailIDValid...!! %hhd",isEmailIDValid); //
+    
+    //Abhishek Don't delete BElow code snippet is for testing
+    
+    //     if (isEmailIDValid == NO) //Abhishek
+    //    {
+    //        NSLog(@"\n Email Id is Valid"); //Abhishek
+    //
+    //        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Invalid Email ID" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    //         alertView.delegate = self;
+    //        alertView.tag = 160;
+    //        [alertView show];
+    //
+    //        return;
+    //    }
+    
     
     NSLog(@"\n\n.. createContact Connection "); //Abhishek
     
@@ -2265,6 +2296,24 @@ UIAlertView *alert;
         [alert show];
         
         return;
+    }
+    
+    else if (testLen<10) //For Cell Number //Abhishek
+    {
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Invalid Cell Number " delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alertView show];
+        // self.textnumber.text = @"";
+        return;
+    }
+    
+    else if (isEmailIDValid == NO) //Abhishek
+    {
+        NSLog(@"\n Email Id is Valid"); //Abhishek
+        
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Invalid Email ID" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        alertView.delegate = self;
+        alertView.tag = 160;
+        [alertView show];
     }
     else{
         
@@ -2336,9 +2385,7 @@ UIAlertView *alert;
                                    /*textCity.text,*/
                                    /*_textCity.text,*/
                                    @"India",
-                                   _textpostalcode
-                                   
-                                   .text,
+                                   _textpostalcode.text,
                                    self.statestringdecoded,
                                    _textadd1.text,
                                    _textadd2.text,
@@ -2364,8 +2411,6 @@ UIAlertView *alert;
         [request addValue:msglength forHTTPHeaderField:@"Content-Length"];
         
         [[RequestDelegate alloc]initiateRequest:request name:@"CreateContactConnection"];
-        
-        
         
     }
 }
@@ -2467,16 +2512,13 @@ UIAlertView *alert;
 }
 
 
-
 -(void)CreateAccountFound:(NSNotification*)notification
 {
-    
     [self hideAlert]; //Abhishek
     
     NSError *err;
     NSString *response = [[notification userInfo]objectForKey:@"response"];
     NSLog(@"\nResponse....%@",response);
-    
     
     TBXML * tbxml = [TBXML newTBXMLWithXMLString:response error:&err];
     
@@ -2509,15 +2551,12 @@ UIAlertView *alert;
     alertView.delegate = self;
     alertView.tag = 120;
     [alertView show];
-    
-    
-    
+        
     //For Testing
     [self Call_createaccountaginstcontact];
+        
     }
-    
 }
-
 
 
 -(void)Call_createaccountaginstcontact
@@ -2695,6 +2734,39 @@ UIAlertView *alert;
             // 2nd Other Button // Cancel Button
         }
     }
+    
+    else if (alertView.tag == 150) //Abhishek Cell Number should not satrt with Zero
+    {
+        if (buttonIndex == 0)
+        {
+            // 1st Other Button // OK Button
+            NSLog(@"\n\n Testing 150 Alertview");
+            self.textnumber.text = @"";
+        }
+        else if (buttonIndex == 1)
+        {
+            // 2nd Other Button // Cancel Button
+        }
+    }
+    
+    else if (alertView.tag == 160) //Abhishek Email ID should not satrt with Zero
+    {
+        if (buttonIndex == 0)
+        {
+            // 1st Other Button // OK Button
+            NSLog(@"\n\n Testing 150 Alertview");
+            self.textid.text = @"";
+        }
+        else if (buttonIndex == 1)
+        {
+            // 2nd Other Button // Cancel Button
+        }
+    }
+    
+
+    
+    
+    
 }
 
 
@@ -3061,6 +3133,17 @@ UIAlertView *alert;
     _textid = nil;
     _textnumber = nil;
     
+}
+
+//Email ID validation
+-(BOOL) NSStringIsValidEmail:(NSString *)checkString
+{
+    BOOL stricterFilter = NO;
+    NSString *stricterFilterString = @"^[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$";
+    NSString *laxString = @"^.+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*$";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
 }
 
 
