@@ -494,7 +494,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 
 {
-    if (alertView.tag==20)
+    if (alertView.tag == 20)
     {
         if (buttonIndex == 0)
         {

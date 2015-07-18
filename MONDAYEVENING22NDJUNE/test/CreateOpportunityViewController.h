@@ -13,10 +13,10 @@
 
 @interface CreateOpportunityViewController : UIViewController<UISplitViewControllerDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate>
 {
-    AppDelegate *appdelegate;
-    UserDetails_Var *userDetailsVal_;
-    CreateContactResult* createcontactresult;
-    CreateAccountAginstContact *createaccountaginstcontact;
+     AppDelegate *appdelegate;
+     UserDetails_Var *userDetailsVal_;
+     CreateContactResult* createcontactresult;
+     CreateAccountAginstContact *createaccountaginstcontact;
      PL_ProductID_Product *pl_productid_product;
      CreateOpportunity *createopportunity;
      CreateAccount *createaccount;//For AccountID
@@ -113,6 +113,10 @@
 
 -(void)showAlert;
 -(void)hideAlert;
+
+
+-(void)emailValidation; //Abhishek
+-(BOOL) NSStringIsValidEmail:(NSString *)checkString; //Checking Email ID
 
 
 @property (weak, nonatomic) IBOutlet UIButton *btn_CreateContact; //
