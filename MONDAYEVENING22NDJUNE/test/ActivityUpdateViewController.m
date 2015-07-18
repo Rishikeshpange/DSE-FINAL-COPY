@@ -226,6 +226,19 @@
     txtSelectTime.delegate = self; //abhishek
     
     
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@" HH:mm:ss"];
+     txtSelectTime.text=[formatter stringFromDate:[NSDate date]];
+    
+    
+    NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
+    [formatter1 setDateFormat:@"MM/dd/yyyy"];
+    txtSelectDate.text=[formatter1 stringFromDate:[NSDate date]];
+
+    
+    
+    
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardWillHideNotification object:nil];
    
@@ -234,13 +247,14 @@
 
 - (void)keyboardDidShow:(NSNotification *)note
 {
+    
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:[note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
     [UIView setAnimationCurve:[note.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue]];
     [UIView setAnimationBeginsFromCurrentState:YES];
-    
     self.view.center = CGPointMake(self.view.center.x, 30.0);
     [UIView commitAnimations];
+    
 }
 
 
@@ -540,6 +554,11 @@
     
 }
 - (void)changeDate:(UIDatePicker *)sender {
+    
+    if ( [ datePicker.date timeIntervalSinceNow ] < 0 )
+    {
+        datePicker.date = [NSDate date];
+    }
     NSLog(@"New Date: %@", sender.date);
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MM/dd/yyyy"];
@@ -624,6 +643,11 @@
     [UIView commitAnimations];
 }
 - (void)changeDate_:(UIDatePicker *)sender {
+    
+    if ( [ datePicker.date timeIntervalSinceNow ] < 0 )
+    {
+        datePicker.date = [NSDate date];
+    }
     NSLog(@"New Date: %@", sender.date);
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@" HH:mm:ss"];

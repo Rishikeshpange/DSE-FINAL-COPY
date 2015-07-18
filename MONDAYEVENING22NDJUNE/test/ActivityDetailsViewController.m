@@ -141,7 +141,8 @@
     
     if ([response rangeOfString:@"SOAP:Fault"].location != NSNotFound )
     {
-        
+        [self hideAlert];
+         [MBProgressHUD hideHUDForView:tableView animated:YES];
         UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"Attention!" message:@"Something gone wrong.Please try again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
     }
@@ -265,6 +266,7 @@
     
     if ([response rangeOfString:@"SOAP:Fault"].location != NSNotFound )
     {
+        
          [MBProgressHUD hideHUDForView:tableView animated:YES];
         UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"Attention!" message:@"Something gone wrong.Please try again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];

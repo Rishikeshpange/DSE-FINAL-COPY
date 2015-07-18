@@ -53,7 +53,7 @@
     
     
     [lbl setText:@"Descrption"];
-    [lbl setFont:[UIFont systemFontOfSize:15]];
+    [lbl setFont:[UIFont systemFontOfSize:18]];
     [lbl setBackgroundColor:[UIColor clearColor]];
     [lbl setTextColor:[UIColor lightGrayColor]];
     txtDescription.delegate = self;
@@ -199,7 +199,7 @@
         [self.txtMakeLost.text isEqualToString:@""] ||
         [self.txtModeLost.text isEqualToString:@""])
     {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert!" message:@"Please Select Values" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert!" message:@"Please Select Mandatory Fields" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return;
     }
@@ -625,7 +625,7 @@
             for (NSString *title in self.ModeLostArray) {
                 [self.actionSheet addButtonWithTitle:title];
             }
-            self.actionSheet.cancelButtonIndex = [self.actionSheet addButtonWithTitle:@"Cancel"];
+          //  self.actionSheet.cancelButtonIndex = [self.actionSheet addButtonWithTitle:@"Cancel"];
             self.actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
         
         
@@ -783,28 +783,28 @@
 - (IBAction)btnReasonLost:(id)sender {
     
     NSLog(@"Activity...Data %@",self.ReasonLostArray);
-    self.actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                               delegate:self
                                      cancelButtonTitle:nil
                                 destructiveButtonTitle:nil
                                      otherButtonTitles:nil];
     // ObjC Fast Enumeration
     for (NSString *title in self.ReasonLostArray) {
-        [self.actionSheet addButtonWithTitle:title];
+        [actionSheet addButtonWithTitle:title];
     }
-    self.actionSheet.cancelButtonIndex = [self.actionSheet addButtonWithTitle:@"Cancel"];
-    self.actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    //actionSheet.cancelButtonIndex = [self.actionSheet addButtonWithTitle:@"Cancel"];
+   actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         
-        [self.actionSheet showFromRect:[(UITextField *)sender frame] inView:self.txtReason animated:YES];
-        self.actionSheet.actionSheetStyle=UIActionSheetStyleBlackTranslucent;
+        [actionSheet showFromRect:[(UITextField *)sender frame] inView:self.txtReason animated:YES];
+        actionSheet.actionSheetStyle=UIActionSheetStyleBlackTranslucent;
     }
     else{
-        [self.actionSheet showInView:self.view];
+        [actionSheet showInView:self.view];
     }
-    self.actionSheet.tag = 1;
+   actionSheet.tag = 1;
     
     
 }
@@ -820,7 +820,7 @@
     for (NSString *title in self.MakeLostArray) {
         [self.actionSheet addButtonWithTitle:title];
     }
-    self.actionSheet.cancelButtonIndex = [self.actionSheet addButtonWithTitle:@"Cancel"];
+   // self.actionSheet.cancelButtonIndex = [self.actionSheet addButtonWithTitle:@"Cancel"];
     self.actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     
     
@@ -841,19 +841,44 @@
     
     if (popup.tag ==1)
     {
+        if ( buttonIndex<0 )
+        {
+           // self.txtReason.text=@"";
+        }
+        else
+        {
+
          NSLog(@"button click ....%@",[self.ReasonLostArray objectAtIndex:buttonIndex]);
         self.txtReason.text=[self.ReasonLostArray objectAtIndex:buttonIndex];
+            
+        }
     }
     else if (popup.tag==2)
     {
+        if ( buttonIndex<0 )
+        {
+            //self.LOB.text = @"";
+        }
+        else
+        {
+
       NSLog(@"button click ....%@",[self.MakeLostArray objectAtIndex:buttonIndex]);
          self.txtMakeLost.text=[self.MakeLostArray objectAtIndex:buttonIndex];
+        }
     
     }
     else if (popup.tag==3)
     {
+        if ( buttonIndex<0 )
+        {
+            //self.LOB.text = @""; 
+        }
+        else
+        {
+
         NSLog(@"button click ....%@",[self.ModeLostArray objectAtIndex:buttonIndex]);
         self.txtModeLost.text=[self.ModeLostArray objectAtIndex:buttonIndex];
+        }
     }
    
 }

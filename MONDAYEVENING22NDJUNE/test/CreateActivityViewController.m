@@ -96,6 +96,17 @@
     
     [descTxt addSubview:lbl];
     
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@" HH:mm:ss"];
+    txtActivityTime.text=[formatter stringFromDate:[NSDate date]];
+    
+    
+    NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
+   [formatter1 setDateFormat:@"dd-MMM-yyyy"];
+    txtActivityDate.text=[formatter1 stringFromDate:[NSDate date]];
+
+    
     _btnSave.enabled = YES; //Abhishek
     _btnSave.backgroundColor = [UIColor colorWithRed:(115/255.0)green:(182/255.0) blue:(68/255.0) alpha:1]; //Abhishek
     
@@ -679,6 +690,12 @@
     
 }
 - (void)changeDate:(UIDatePicker *)sender {
+    
+    if ( [ datePicker.date timeIntervalSinceNow ] < 0 )
+    {
+        datePicker.date = [NSDate date];
+    }
+
     NSLog(@"New Date: %@", sender.date);
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
    // [formatter setDateFormat:@"MM/dd/yyyy"];
@@ -766,7 +783,7 @@
     
     if ([txtActivityType.text isEqual:@""] || [txtActivityDate.text isEqual:@""] || [descTxt.text isEqual:@""])
     {
-        alert=[[UIAlertView alloc]initWithTitle:@"Attention!" message:@"Select a values" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert=[[UIAlertView alloc]initWithTitle:@"Attention!" message:@"Please select mandatory fields" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
     else
@@ -795,6 +812,12 @@
   
 }
 - (void)changeDate_:(UIDatePicker *)sender {
+    
+    if ( [ datePicker.date timeIntervalSinceNow ] < 0 )
+    {
+        datePicker.date = [NSDate date];
+    }
+
     NSLog(@"New Date: %@", sender.date);
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     //[formatter setDateFormat:@"HH:mm aa"];

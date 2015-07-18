@@ -168,13 +168,21 @@
         // nil branch
     }
    
-    if (searchOppListVar.LAST_DONE_ACTIVITY_TYPE == nil || searchOppListVar.LAST_DONE_ACTIVITY_TYPE == (id)[NSNull null]) {
+    if (cell.lbl_LastDone_Name.text == nil || cell.lbl_LastDone_Name.text == (id)[NSNull null] || [cell.lbl_LastDone_Name.text length]==0 ) {
         cell.lbl_LastDone_Name.text=@"Unavailable";
         // nil branch
     } else
     {
         // category name is set
     }
+    
+//    if (searchOppListVar.LAST_DONE_ACTIVITY_TYPE == nil || searchOppListVar.LAST_DONE_ACTIVITY_TYPE == (id)[NSNull null] || ) {
+//        cell.lbl_LastDone_Name.text=@"Unavailable";
+//        // nil branch
+//    } else
+//    {
+//        // category name is set
+//    }
 //    if ( [searchOppListVar.LAST_DONE_ACTIVITY_TYPE isEqualToString:@""]) {
 //        // cell.lbl_.text=searchOppListVar.PRODUCT_LINE;
 //         cell.lbl_LastDone_Name.text=@"Unavailable";
@@ -543,6 +551,11 @@
                 
                 TBXMLElement *LAST_DONE_ACTIVITY_DATE = [TBXML childElementNamed:@"LAST_DONE_ACTIVITY_DATE" parentElement:table];
                 searchOppListVar.LAST_DONE_ACTIVITY_DATE = [TBXML textForElement:LAST_DONE_ACTIVITY_DATE];
+                
+                TBXMLElement *LAST_DONE_ACTIVITY_TYPE = [TBXML childElementNamed:@"LAST_DONE_ACTIVITY_TYPE" parentElement:table];
+                searchOppListVar.LAST_DONE_ACTIVITY_TYPE = [TBXML textForElement:LAST_DONE_ACTIVITY_TYPE];
+                
+                
                 NSLog(@"OptyNAme : %@",searchOppListVar.LAST_DONE_ACTIVITY_DATE);
                 
                 

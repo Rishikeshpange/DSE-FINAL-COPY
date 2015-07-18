@@ -1,4 +1,4 @@
- //
+  //
 //  OpportunityDetailsViewController.m
 //  NEEV
 //
@@ -221,8 +221,51 @@
     self.ACTIVITYVIEW.frame = CGRectInset(self.ACTIVITYVIEW.frame, -borderWidth, -borderWidth);
     self.ACTIVITYVIEW.layer.borderColor = [UIColor colorWithRed:(225/255.0) green:(225/255.0) blue:(225/255.0) alpha:1].CGColor;
     self.ACTIVITYVIEW.layer.borderWidth = borderWidth;
+    if (self.LastDoneActivityDescrption.text == nil || self.LastDoneActivityDescrption.text== (id)[NSNull null] || [self.LastDoneActivityDescrption.text length]==0 ) {
+        self.LastDoneActivityDescrption.text=@"Unavailable";
+        // nil branch
+    }
+    if (self.LastDoneActivitystartDate.text == nil || self.LastDoneActivitystartDate.text== (id)[NSNull null] || [self.LastDoneActivitystartDate.text length]==0 ) {
+        self.LastDoneActivitystartDate.text=@"Unavailable";
+        // nil branch
+    }
+    if (self.LastDoneActivityType.text == nil || self.LastDoneActivityType.text== (id)[NSNull null] || [self.LastDoneActivityType.text length]==0 ) {
+        self.LastDoneActivityType.text=@"Unavailable";
+        // nil branch
+    }
+    if (self.LastDoneActivityDescrption.text == nil || self.LastDoneActivityDescrption.text== (id)[NSNull null] || [self.LastDoneActivityDescrption.text length]==0 ) {
+        self.LastDoneActivityDescrption.text=@"Unavailable";
+        // nil branch
+    }
+    if (self.LastPendingActivityStartDate.text == nil || self.LastPendingActivityStartDate.text== (id)[NSNull null] || [self.LastPendingActivityStartDate.text length]==0 ) {
+        self.LastPendingActivityStartDate.text=@"Unavailable";
+        // nil branch
+    }
+    if (self.LastPendingActivityType.text == nil || self.LastPendingActivityType.text== (id)[NSNull null] || [self.LastPendingActivityType.text length]==0 ) {
+        self.LastPendingActivityType.text=@"Unavailable";
+        // nil branch
+    }
+    if (self.CUSTOMER_ACCOUNT_NAME.text == nil || self.CUSTOMER_ACCOUNT_NAME.text== (id)[NSNull null] || [self.CUSTOMER_ACCOUNT_NAME.text length]==0 ) {
+        self.CUSTOMER_ACCOUNT_NAME.text=@"Unavailable";
+        // nil branch
+    }if (self.CUSTOMER_PHONE_NUMBER.text == nil || self.CUSTOMER_PHONE_NUMBER.text== (id)[NSNull null] || [self.CUSTOMER_PHONE_NUMBER.text length]==0 ) {
+        self.CUSTOMER_PHONE_NUMBER.text=@"Unavailable";
+        // nil branch
+    }
+    if (self.LastPendingActivityDescription.text == nil || self.LastPendingActivityDescription.text== (id)[NSNull null] || [self.LastPendingActivityDescription.text length]==0 ) {
+        self.LastPendingActivityDescription.text=@"Unavailable";
+        // nil branch
+    }
+//    if (self.LastDoneActivityDescrption.text == nil || self.LastDoneActivityDescrption.text== (id)[NSNull null] || [self.LastDoneActivityDescrption.text length]==0 ) {
+//        self.LastDoneActivityDescrption.text=@"Unavailable";
+//        // nil branch
+//    }
+//    if (self.LastDoneActivityDescrption.text == nil || self.LastDoneActivityDescrption.text== (id)[NSNull null] || [self.LastDoneActivityDescrption.text length]==0 ) {
+//        self.LastDoneActivityDescrption.text=@"Unavailable";
+//        // nil branch
+//    }
     
-    if ([self.LastDoneActivityDescrption.text isEqualToString:@""])
+  /*  if ([self.LastDoneActivityDescrption.text isEqualToString:@""])
     {
         self.LastDoneActivityDescrption.text=@"Unavialable";
     }
@@ -253,7 +296,7 @@
     if ([self.CUSTOMER_PHONE_NUMBER.text isEqualToString:@""])
     {
         self.CUSTOMER_PHONE_NUMBER.text=@"Unavialable";
-    }
+    }*/
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarButtonItems];
 
@@ -931,6 +974,7 @@
     
     
 }
+
 - (IBAction)UpdateOppurtunity:(id)sender
 {
    if([self.SALES_STAGE_NAME.text isEqualToString:@"Closed Lost at C1"])
@@ -1077,7 +1121,13 @@
 
 -(void)proceedToQuoteCreation
 {
-    
+    if ([self.SALES_STAGE_NAME.text isEqualToString:@"C1 (Quote Tendered)"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Attention!" message:@"Your Quote Has Been Already Generated" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
     [self showAlert];//Abhishek
     
     
@@ -1338,7 +1388,7 @@
     
     [[RequestDelegate alloc]initiateRequest:request name:@"ProceedToQuoteCreation_Connection"];
 
-
+    }
 
 }
 
@@ -1470,7 +1520,7 @@
             
             if (IntegrationIdstring)
             {
-                UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Done" message:@"Quote Generation has been Successfull" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Done" message:@"Quote has been generated successfully" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
                 self.SALES_STAGE_NAME.text=@"C1(Quote Tendered)";
             }
